@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.pyc
+venv/
+*.db
+*.db.bak*
+*copy*.db
+
+# Node
+node_modules/
+.next/
+out/
+
+# Секреты
+.env
+.env.*
+!.env.example
+
+# Система
+.DS_Store
+Thumbs.db
+
+# Бэкапы
+_patch_backups/
