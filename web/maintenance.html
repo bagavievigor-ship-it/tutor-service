@@ -1,0 +1,25 @@
+sudo tee /opt/repetitor_app_web/maintenance.html >/dev/null <<'HTML'
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Технические работы</title>
+  <style>
+    body{font-family:Inter,Arial,sans-serif;margin:0;background:#f5f6fb}
+    .wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
+    .card{background:#fff;border-radius:16px;box-shadow:0 8px 32px rgba(0,0,0,.08);padding:28px;max-width:560px;width:100%;text-align:center}
+    h1{margin:0 0 10px;font-size:24px}
+    p{margin:0;color:#666;font-size:16px;line-height:1.4}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <h1>🛠 Технические работы</h1>
+      <p>Зайдите позже.</p>
+    </div>
+  </div>
+</body>
+</html>
+HTML

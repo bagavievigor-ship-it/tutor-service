@@ -1,0 +1,11 @@
+User-agent: *
+Disallow: /me/
+Disallow: /login
+Disallow: /tutors/me
+Disallow: /requests/new
+Disallow: /api/
+Disallow: /*?*
+
+Allow: /
+
+Sitemap: https://app.repetitor18.ru/sitemap.xml

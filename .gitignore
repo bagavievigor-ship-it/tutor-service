@@ -22,3 +22,4 @@ Thumbs.db
 
 # Бэкапы
 _patch_backups/
+.env.local
