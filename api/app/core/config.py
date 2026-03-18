@@ -4,7 +4,7 @@ from pydantic_settings import BaseSettings
 class Settings(BaseSettings):
     APP_ENV: str = "dev"
 
-    DATABASE_URL: str = "sqlite:////opt/repetitor_app_api/app.db"
+    DATABASE_URL: str = "postgresql://repetitor:GVUkvuk3682%+d@localhost/repetitor18"
 
     JWT_SECRET: str
     JWT_TTL_MINUTES: int = 43200  # 30 days
