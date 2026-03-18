@@ -18,6 +18,7 @@ from sqlalchemy.orm import Session
 from app.core.security import create_access_token, decode_token, verify_telegram_login
 from app.models.user import User
 from app.routers.deps import get_db
+from app.core.config import settings
 from app.schemas.auth import TelegramAuthIn, TokenOut
 
 router = APIRouter(prefix="/auth", tags=["auth"])
@@ -30,30 +31,30 @@ router = APIRouter(prefix="/auth", tags=["auth"])
 def _ensure_auth_tables(db: Session) -> None:
     db.execute(text("""
         CREATE TABLE IF NOT EXISTS auth_identities (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            id SERIAL,
             provider VARCHAR(32) NOT NULL,
             provider_user_id VARCHAR(128) NOT NULL,
             user_id INTEGER NOT NULL,
-            created_at DATETIME NOT NULL,
+            created_at TIMESTAMP NOT NULL,
             UNIQUE(provider, provider_user_id)
         );
     """))
     db.execute(text("""
         CREATE TABLE IF NOT EXISTS email_login_codes (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            id SERIAL,
             email VARCHAR(320) NOT NULL,
             code VARCHAR(12) NOT NULL,
-            created_at DATETIME NOT NULL,
-            expires_at DATETIME NOT NULL,
-            used_at DATETIME
+            created_at TIMESTAMP NOT NULL,
+            expires_at TIMESTAMP NOT NULL,
+            used_at TIMESTAMP
         );
     """))
     db.execute(text("""
         CREATE TABLE IF NOT EXISTS vk_oauth_states (
             state VARCHAR(96) PRIMARY KEY,
             code_verifier VARCHAR(128) NOT NULL,
-            created_at DATETIME NOT NULL,
-            expires_at DATETIME NOT NULL
+            created_at TIMESTAMP NOT NULL,
+            expires_at TIMESTAMP NOT NULL
         );
     """))
 
@@ -165,11 +166,11 @@ def _normalize_email(raw: str) -> str:
 
 
 def _smtp_send(to_email: str, subject: str, body: str) -> None:
-    host = os.getenv("SMTP_HOST")
-    port = int(os.getenv("SMTP_PORT", "587"))
-    user = os.getenv("SMTP_USER")
-    password = os.getenv("SMTP_PASSWORD")
-    from_email = os.getenv("SMTP_FROM") or user
+    host = settings.SMTP_HOST
+    port = int(str(settings.SMTP_PORT))
+    user = settings.SMTP_USER
+    password = settings.SMTP_PASSWORD
+    from_email = settings.SMTP_FROM or user
 
     msg = MIMEText(body, "plain", "utf-8")
     msg["Subject"] = subject

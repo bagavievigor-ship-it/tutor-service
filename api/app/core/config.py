@@ -20,6 +20,14 @@ class Settings(BaseSettings):
     APP_PUBLIC_URL: str = "https://app.repetitor18.ru"
     API_PUBLIC_URL: str = "https://api.app.repetitor18.ru"
 
+
+    # SMTP (email login codes)
+    SMTP_HOST: str = ""
+    SMTP_PORT: int = 587
+    SMTP_USER: str = ""
+    SMTP_PASSWORD: str = ""
+    SMTP_FROM: str = ""
+
     # VK ID OAuth (id.vk.ru)
     VKID_CLIENT_ID: str = ""
     VKID_CLIENT_SECRET: str = ""
